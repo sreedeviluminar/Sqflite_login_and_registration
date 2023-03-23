@@ -1,5 +1,3 @@
-
-
 import 'package:auth_sqlflite/db/SQLHelper.dart';
 import 'package:auth_sqlflite/screens/Home.dart';
 import 'package:auth_sqlflite/screens/admin.dart';
@@ -13,15 +11,17 @@ class Login_Form extends StatefulWidget {
 }
 
 class _Login_FormState extends State<Login_Form> {
+
   var formkey = GlobalKey<FormState>();
   final TextEditingController conemail = TextEditingController();
   final TextEditingController conpass = TextEditingController();
 
-  void logincheck (String email,String password) async{
-    if( email == 'admin@gmail.com' &&  password == '123456'){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>AdminHome()));
+  void logincheck(String email, String password) async {
 
-    }else {
+    if (email == 'admin@gmail.com' && password == '123456') {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => const AdminHome()));
+    } else {
       var data = await SQLHelper.CheckLogin(email, password);
       if(data.isNotEmpty){
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Home(data: data,)));
@@ -31,7 +31,6 @@ class _Login_FormState extends State<Login_Form> {
         print('Login faild');
       }
     }
-
   }
 
   @override
@@ -39,33 +38,34 @@ class _Login_FormState extends State<Login_Form> {
     bool hidepass = true;
     return Scaffold(
       appBar: AppBar(
-
-        title: Text("LOGIN PAGE"),
+        title: const Text("LOGIN PAGE"),
       ),
       body: Form(
         key: formkey,
         child: ListView(
           children: [
-            Center(
+            const Center(
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
-                  child: Text(
-                    "Login Page",
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                  ),
-                )),
+              padding: EdgeInsets.only(top: 20.0),
+              child: Text(
+                "Login Page",
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              ),
+            )),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: TextFormField(
-                  controller: conemail,
+                controller: conemail,
                 decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.drive_file_rename_outline),
+                    prefixIcon: const Icon(Icons.drive_file_rename_outline),
                     labelText: "Email",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                     )),
                 validator: (text) {
-                  if (text!.isEmpty || !text.contains('@') || !text.contains(".")) {
+                  if (text!.isEmpty ||
+                      !text.contains('@') ||
+                      !text.contains(".")) {
                     return "Enter valid Email!!!";
                   }
                 },
@@ -73,13 +73,13 @@ class _Login_FormState extends State<Login_Form> {
               ),
             ),
             Padding(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 child: TextFormField(
                   controller: conpass,
                   obscureText: hidepass,
                   obscuringCharacter: "*",
                   decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.lock),
+                    prefixIcon: const Icon(Icons.lock),
                     suffixIcon: IconButton(
                       onPressed: () {
                         setState(() {
@@ -115,19 +115,21 @@ class _Login_FormState extends State<Login_Form> {
                 onPressed: () {
                   final valid = formkey.currentState!.validate();
 
-                  if(valid) {
-                    logincheck(conemail.text,conpass.text);
-                  } else {
+                  if (valid) {
 
-                  }
+                    logincheck(conemail.text, conpass.text);
+
+                  } else {}
                 },
-                child: Text("LOGIN"),
+                child: const Text("LOGIN"),
               ),
             ),
             TextButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>  Signup_Form()));
-                }, child: Text('Not a User? Register Here!!!'))
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Signup_Form()));
+                },
+                child: const Text('Not a User? Register Here!!!'))
           ],
         ),
       ),

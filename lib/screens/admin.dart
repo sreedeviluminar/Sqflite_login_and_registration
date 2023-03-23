@@ -22,7 +22,7 @@ class _AdminHomeState extends State<AdminHome> {
    Refresh();
     super.initState();
   }
-  void Refresh()async{
+  void Refresh() async{
     var mydata  = await SQLHelper.getAll();
     setState(()   {
       data = mydata;

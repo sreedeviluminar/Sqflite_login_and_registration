@@ -1,6 +1,3 @@
-
-
-
 import 'package:auth_sqlflite/screens/login.dart';
 import 'package:auth_sqlflite/screens/signup.dart';
 import 'package:flutter/material.dart';
@@ -20,13 +17,13 @@ class _Login_SignupState extends State<Login_Signup> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 80.0),
+            const Padding(
+              padding: EdgeInsets.only(top: 80.0),
               child: Text("Hello There!",style: TextStyle(fontSize: 40,fontWeight: FontWeight.bold),),
             ),
-            Padding(
+            const Padding(
 
-              padding: const EdgeInsets.all(25.0),
+              padding: EdgeInsets.all(25.0),
               child: Text(
                 "Automatic identity verification which enable you to verify your identity",textAlign: TextAlign.center,style: TextStyle(color: Colors.grey),),
             ),
@@ -36,14 +33,12 @@ class _Login_SignupState extends State<Login_Signup> {
             Padding(
               padding: const EdgeInsets.only(top: 50.0),
               child: ElevatedButton(
-
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.blueAccent.shade700),
                     minimumSize: MaterialStateProperty.all(Size(330, 50)),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0),
-
                       ),
                     ),
                   ),
