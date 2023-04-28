@@ -12,9 +12,7 @@ class Signup_Form extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     void Addnewuser(String name, String email, String password) async {
-
       var id = await SQLHelper.AddNewUser(name, email, password);
 
       if (id != null) {
@@ -135,12 +133,23 @@ class Signup_Form extends StatelessWidget {
                           RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0),
                       ))),
-                  onPressed: () {
+                  onPressed: () async {
                     final valid1 = formkey1.currentState!.validate();
 
                     if (valid1) {
                       /// if form state is valid data from the textfield will upload to db
-                      Addnewuser(conname.text, conemail.text, pass.text);
+                      String uname = conemail.text;
+                      String name = conname.text;
+
+                      var data = await SQLHelper.userFound(name, uname);
+
+                      if (data.isNotEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('User already exist')));
+                      } else {
+                        Addnewuser(conname.text, conemail.text, pass.text);
+                      }
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           action:

@@ -33,7 +33,17 @@ class SQLHelper {
     if (data.isNotEmpty) {
       return data;
     }
+    return data;
+  }
 
+  ///check user already exist
+  static Future<List<Map>> userFound(String uname, String eemail) async {
+    final db = await SQLHelper.OpenDb();
+    final data = await db.rawQuery(
+        "SELECT * FROM user WHERE name= '$uname' AND email = '$eemail' ");
+    if (data.isNotEmpty) {
+      return data;
+    }
     return data;
   }
 
