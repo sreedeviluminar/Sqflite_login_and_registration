@@ -1,33 +1,35 @@
-
-
 import 'package:auth_sqlflite/db/SQLHelper.dart';
 import 'package:flutter/material.dart';
 
 class AdminHome extends StatefulWidget {
-
-  const AdminHome({Key? key}) : super(key: key);
 
   @override
   State<AdminHome> createState() => _AdminHomeState();
 }
 
 class _AdminHomeState extends State<AdminHome> {
-  var data;
-  void delet(int id)async {
-   await SQLHelper.Deleteuser(id);
-   Refresh();
-  }
-  @override
+  var data; ///for storing all the users from the db
+
+
+  @override   ///when this page loads show all the registered users in the screen
   void initState() {
-   Refresh();
+    Refresh();
     super.initState();
   }
+
   void Refresh() async{
-    var mydata  = await SQLHelper.getAll();
+    var mydata  = await SQLHelper.getAll(); /// function for fetching all the values from db
     setState(()   {
       data = mydata;
     });
   }
+
+  void delet(int id)async {
+   await SQLHelper.Deleteuser(id);
+   Refresh();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +42,7 @@ class _AdminHomeState extends State<AdminHome> {
           child: ListTile(
             title: Text('${data[index]['name']}'),
             trailing: IconButton(onPressed: (){
-              delet(data[index]['id']);
+             delet(data[index]['id']);
             },icon: Icon(Icons.delete),),
           ),
         );

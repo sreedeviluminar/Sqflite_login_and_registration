@@ -12,15 +12,17 @@ class Signup_Form extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     void Addnewuser(String name, String email, String password) async {
       var id = await SQLHelper.AddNewUser(name, email, password);
-
-      if (id != null) {
+      if (id != null) {   /// if registration is success goto login page
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => Login_Form()));
+            context, MaterialPageRoute(
+            builder: (context) => Login_Form()));
       } else {
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const Login_Signup()));
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content:
+            Text('Registration not Successful')));
       }
     }
 
@@ -133,27 +135,22 @@ class Signup_Form extends StatelessWidget {
                           RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0),
                       ))),
+
                   onPressed: () async {
                     final valid1 = formkey1.currentState!.validate();
-
                     if (valid1) {
                       /// if form state is valid data from the textfield will upload to db
-                      String uname = conemail.text;
-                      String name = conname.text;
-
-                      var data = await SQLHelper.userFound(name, uname);
+                      var data = await SQLHelper.userFound(conname.text, conemail.text);
 
                       if (data.isNotEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('User already exist')));
+                            const SnackBar(content: Text('User already exist')));
                       } else {
                         Addnewuser(conname.text, conemail.text, pass.text);
                       }
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          action:
-                              SnackBarAction(label: 'UNDO', onPressed: () {}),
+                          action: SnackBarAction(label: 'UNDO', onPressed: () {}),
                           content: const Text('Invalid username / password')));
                     }
                   },

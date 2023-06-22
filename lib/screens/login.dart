@@ -11,24 +11,33 @@ class Login_Form extends StatefulWidget {
 }
 
 class _Login_FormState extends State<Login_Form> {
-
   var formkey = GlobalKey<FormState>();
   final TextEditingController conemail = TextEditingController();
   final TextEditingController conpass = TextEditingController();
 
   void logincheck(String email, String password) async {
+    ///Admin login
     if (email == 'admin@gmail.com' && password == '123456') {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const AdminHome()));
+          context, MaterialPageRoute(
+          builder: (context) => AdminHome()));
     } else {
+      ///check if user already exit
       var data = await SQLHelper.CheckLogin(email, password);
+
+      /// if user found in db
       if (data.isNotEmpty) {
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => Home(data: data,)));
+        Navigator.pushReplacement(context, MaterialPageRoute(
+                builder: (context) => Home(
+                      data: data,
+                    )));
         print('Login Success');
+
+        ///if user not fond in DB
       } else if (data.isEmpty) {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => Login_Signup()));
+            context, MaterialPageRoute(
+            builder: (context) => Login_Signup()));
         print('Login faild');
       }
     }
@@ -47,12 +56,12 @@ class _Login_FormState extends State<Login_Form> {
           children: [
             const Center(
                 child: Padding(
-                  padding: EdgeInsets.only(top: 20.0),
-                  child: Text(
-                    "Login Page",
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                  ),
-                )),
+              padding: EdgeInsets.only(top: 20.0),
+              child: Text(
+                "Login Page",
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              ),
+            )),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: TextFormField(
@@ -115,7 +124,6 @@ class _Login_FormState extends State<Login_Form> {
                 ),
                 onPressed: () {
                   final valid = formkey.currentState!.validate();
-
                   if (valid) {
                     logincheck(conemail.text, conpass.text);
                   } else {}
