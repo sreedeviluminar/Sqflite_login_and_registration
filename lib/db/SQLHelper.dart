@@ -26,7 +26,7 @@ class SQLHelper {
     final id = db.insert('user', data);
     return id;
   }
-
+/// user found in db for login
   static Future<List<Map>> CheckLogin(String email, String password) async {
     final db = await SQLHelper.OpenDb();
     final data = await db.rawQuery(
@@ -38,7 +38,7 @@ class SQLHelper {
     return data;
   }
 
-  ///check user already exist
+  ///check user already exist for registration
   static Future<List<Map>> userFound(String uname, String eemail) async {
     final db = await SQLHelper.OpenDb();
     final data = await db.rawQuery(
@@ -49,14 +49,27 @@ class SQLHelper {
     return data;
   }
 
-  static Future<List<Map>> getAll() async {
+  /// fetch all the users in db
+  static Future<List<Map<String ,dynamic>>> getAll() async {
     final db = await SQLHelper.OpenDb();
     final data = db.rawQuery("SELECT * FROM user");
     return data;
   }
 
+  ///
   static Future<void> Deleteuser(int id) async {
     final db = await SQLHelper.OpenDb();
     db.delete('user', where: 'id = ?', whereArgs: [id]);
+  }
+
+  ///update a single contact
+  static Future<int> update(int id, String name, String email) async {
+    final db = await SQLHelper.OpenDb();
+    final newdata = {
+      'name'  : name,
+      'email': email,
+    };
+    final newid = await db.update('user', newdata, where: 'id =?', whereArgs: [id]);
+    return newid;
   }
 }

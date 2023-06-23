@@ -19,8 +19,7 @@ class _Login_FormState extends State<Login_Form> {
     ///Admin login
     if (email == 'admin@gmail.com' && password == '123456') {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(
-          builder: (context) => AdminHome()));
+          context, MaterialPageRoute(builder: (context) => AdminHome()));
     } else {
       ///check if user already exit
       var data = await SQLHelper.CheckLogin(email, password);
@@ -36,8 +35,7 @@ class _Login_FormState extends State<Login_Form> {
         ///if user not fond in DB
       } else if (data.isEmpty) {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(
-            builder: (context) => Login_Signup()));
+            context, MaterialPageRoute(builder: (context) => Login_Signup()));
         print('Login faild');
       }
     }
