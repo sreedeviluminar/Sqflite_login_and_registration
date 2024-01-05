@@ -99,7 +99,7 @@ class _HomeState extends State<Home> {
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Welcome"),
+          title:  Text("Welcome $name"),
           elevation: 5,
         ),
         body: Card(
