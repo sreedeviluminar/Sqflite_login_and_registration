@@ -1,8 +1,10 @@
+import 'package:auth_sqlflite/screens/Home.dart';
 import 'package:auth_sqlflite/screens/login_signup.dart';
 import 'package:flutter/material.dart';
 
 void main(){
   runApp(MyApp());
+
 }
 
 class MyApp extends StatelessWidget {

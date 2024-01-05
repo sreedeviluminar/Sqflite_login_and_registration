@@ -26,10 +26,7 @@ class _Login_FormState extends State<Login_Form> {
 
       /// if user found in db
       if (data.isNotEmpty) {
-        Navigator.pushReplacement(context, MaterialPageRoute(
-                builder: (context) => Home(
-                      data: data,
-                    )));
+        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context)=>Home(data: data)));
         print('Login Success');
 
         ///if user not fond in DB

@@ -12,7 +12,6 @@ class _AdminHomeState extends State<AdminHome> {
   ///for storing all the users from the db
 
   @override
-
   ///when this page loads show all the registered users in the screen
   void initState() {
     Refresh();
